@@ -4,11 +4,15 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  
+  // Yeh part add kiya hai taake 'process' error solve ho jaye
+  define: {
+    'process.env': {}
+  },
+
   build: {
-    // Esbuild config parameters ko clean kiya taake standalone engine warning na aaye
     rollupOptions: {
       output: {
-        // Manual framework bundle isolation strategy
         manualChunks(id) {
           if (id.includes('node_modules')) {
             return 'vendor-core';
