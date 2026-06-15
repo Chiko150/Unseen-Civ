@@ -21,3 +21,7 @@ To run this project locally, you need to set up your environment variables.
 VITE_SHEET_ID=your_actual_sheet_id_here
 VITE_GOOGLE_CLIENT_EMAIL=your_service_account_email_here
 VITE_GOOGLE_PRIVATE_KEY="your_actual_private_key_here"
+
+ 3. Google API Setup
+- To run this project, you will need your **Google Service Account** JSON key file.
+- Place your `credentials.json` file in the **root directory** of the project.
