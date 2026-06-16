@@ -1,14 +1,23 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from dotenv import load_dotenv
+
+# .env file load karein
+load_dotenv()
 
 app = FastAPI()
 
-# CORS allow karein taake React aapka backend call kar sake
+# .env se allowed origins utha rahe hain
+# Agar .env mein nahi milega toh default empty list hogi
+origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
+# CORS configuration (ab dynamic hai)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=origins, 
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -16,7 +25,7 @@ app.add_middleware(
 # Google Sheets Setup
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-# 'credentials.json' wahi file hai jiska naam aapne change kiya tha
+# 'credentials.json' wahi file hai
 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
 client = gspread.authorize(creds)
 
